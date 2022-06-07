@@ -51,9 +51,11 @@ class App {
     this.action = false;
     this.calculatorInput = document.querySelector(".calculator-input");
     this.colorTheme = document.querySelectorAll(".color-theme");
-
+    this.themeBtnContainer = document.querySelector(".theme-btn-container");
+    this.themeLabel = document.querySelectorAll(".theme-label");
     this.addEventListener();
   }
+
   addEventListener() {
     window.addEventListener("click", (event) => {
       if (event.target.classList.contains("theme-color-btn")) {
@@ -64,9 +66,18 @@ class App {
       let char = event.target.dataset.id;
 
       this.checkCalulated(event);
-      if (char === "del") { this.deleteChar(); return; }
-      if (char === "reset") { this.clearCalculator(); return; }
-      if (char === "=") { this.equalAction(); return; }
+      if (char === "del") {
+        this.deleteChar();
+        return;
+      }
+      if (char === "reset") {
+        this.clearCalculator();
+        return;
+      }
+      if (char === "=") {
+        this.equalAction();
+        return;
+      }
       if (event.target.classList.contains("calculator-action")) {
         if (this.action) {
           return;
@@ -105,7 +116,7 @@ class App {
   }
 
   equalAction() {
-    this.input = this.input.toString()
+    this.input = this.input.toString();
     if (
       this.input.endsWith("/") ||
       this.input.endsWith("*") ||
@@ -116,15 +127,15 @@ class App {
       this.calculatorInput.innerText = this.input;
     }
     if (
-    this.input.startsWith("/") ||
-    this.input.startsWith("*") ||
-    this.input.startsWith("+") ||
-    this.input.startsWith("-")
+      this.input.startsWith("/") ||
+      this.input.startsWith("*") ||
+      this.input.startsWith("+") ||
+      this.input.startsWith("-")
     ) {
       this.input = this.input.substring(1);
       this.calculatorInput.innerText = this.input;
     }
-    if (!this.input) return
+    if (!this.input) return;
     this.result = this.equal(this.input);
     this.calculatorInput.innerText += "=" + this.result;
     this.isCalulated = true;
@@ -145,6 +156,14 @@ class App {
     const theme = this.themes[themeName];
     for (var variable in theme) {
       document.documentElement.style.setProperty(variable, theme[variable]);
+    }
+    for (let i = 0; i < this.themeLabel.length; i++) {
+      const childElement = this.themeLabel[i].childNodes[1];
+      if (childElement.id === themeName) {
+        this.themeLabel[i].classList.add("checked");
+      } else if (this.themeLabel[i].classList.contains("checked")) {
+        this.themeLabel[i].classList.remove("checked");
+      }
     }
   }
 }
