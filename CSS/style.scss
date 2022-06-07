@@ -1,0 +1,251 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap");
+:root {
+  --main-back: hsl(222, 26%, 31%);
+  --key-back-main: hsl(223, 31%, 20%);
+  --screen-back: hsl(224, 36%, 15%);
+  --key1-back: hsl(225, 21%, 49%);
+  --key1-shadow: hsl(224, 28%, 35%);
+  --key2-back: hsl(6, 63%, 50%);
+  --key2-shadow: hsl(6, 70%, 34%);
+  --key3-back: hsl(30, 25%, 89%);
+  --key3-shadow: hsl(28, 16%, 65%);
+  --text-dark: hsl(221, 14%, 31%);
+  --text-light: hsl(224, 36%, 15%);
+  --text-light-screen: hsl(0, 0%, 99%);
+}
+
+* {
+  font-family: "League Spartan", sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 40px;
+  background-color: var(--main-back);
+}
+p {
+  margin: 0;
+}
+
+.container {
+  max-width: 540px;
+  display: grid;
+  grid-template-rows: 130px 1fr;
+  place-content: center;
+  gap: 30px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 35px;
+  &-title {
+    font-size: 30px;
+    color: var(--text-light-screen);
+  }
+}
+.theme {
+  &-color {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-title {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--text-light-screen);
+    padding-right: 30px;
+  }
+  &-btn-container {
+    background-color: var(--key-back-main);
+    display: flex;
+    width: 60px;
+    padding: 3px 2px;
+    border-radius: 20px;
+    position: relative;
+  }
+  &-label {
+    position: relative;
+    cursor: pointer;
+    width: 30px;
+  }
+  &-color-btn {
+    position: absolute;
+    top: 100px;
+    opacity: 0;
+    width: 30px;
+    + .theme-label {
+      &::before {
+        content: "";
+        width: 15px;
+        height: 15px;
+        top: 2.5px;
+        left: 2.5px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+    }
+    &:checked {
+      + .theme-label {
+        &::before {
+          position: absolute;
+          background-color: var(--key2-back);
+        }
+      }
+    }
+  }
+}
+
+.calculator {
+  &-screen {
+    color: var(--text-light-screen);
+    background-color: var(--screen-back);
+    width: 540px;
+    border-radius: 15px;
+    overflow-x: hidden;
+    display: grid;
+    place-content: center;
+    grid-template-columns: 1fr;
+  }
+  &-input {
+    text-align: right;
+    max-height: 100%;
+    padding: 0 20px;
+    font-size: 40px;
+    line-height: 50px;
+  }
+  &-body {
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    width: 540px;
+    gap: 24px;
+    padding: 30px 0;
+    border-radius: 15px;
+    background-color: var(--key-back-main);
+    & .col,
+    & .col-2 {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(4, 100px);
+      gap: 24px;
+      place-content: center;
+    }
+    & .col-2 {
+      grid-template-columns: repeat(2, 230px);
+    }
+  }
+  &-number,
+  &-move,
+  &-action {
+    width: 100px;
+    height: 60px;
+    border-radius: 5px;
+    font-size: 26px;
+    color: var(--text-light);
+    border: none;
+    cursor: pointer;
+    transition: all 150ms;
+    &:active {
+      transform: translateY(3%);
+    }
+  }
+  &-move.reset,
+  &-move.equals {
+    width: 224px;
+    height: 60px;
+  }
+  &-number {
+    background-color: var(--key3-back);
+    box-shadow: 1px 5px 0px var(--key3-shadow);
+
+    &:hover {
+      background-color: var(--text-light-screen);
+      color: var(--key1-back);
+    }
+    &:active {
+      box-shadow: 1px 3px 0px var(--key3-shadow);
+    }
+  }
+  &-action {
+    background-color: var(--key3-back);
+    box-shadow: 1px 5px 0px var(--key3-shadow);
+    &:hover {
+      background-color: var(--text-light-screen);
+      color: var(--key1-back);
+    }
+    &:active {
+      box-shadow: 1px 3px 0px var(--key3-shadow);
+    }
+  }
+  &-move {
+    background-color: var(--key1-back);
+    box-shadow: 1px 5px 0px var(--key1-shadow);
+    color: var(--text-light);
+    &:active {
+      box-shadow: 1px 3px 0px var(--key1-shadow);
+    }
+  }
+  &-move.equals {
+    background-color: var(--key2-back);
+    box-shadow: 1px 5px 0px var(--key2-shadow);
+    color: var(--key3-back);
+    &:active {
+      box-shadow: 1px 3px 0px var(--key2-shadow);
+    }
+  }
+}
+.attribution {
+  max-width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-light-screen);
+  & a {
+    color: var(--key2-back);
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .container {
+    width: 330px;
+  }
+  .header {
+    padding: 0 5px;
+  }
+  .calculator {
+    &-screen {
+      width: 330px;
+    }
+    &-input {
+      padding: 0 20px;
+      font-size: 33px;
+      line-height: 40px;
+    }
+    &-body {
+      width: 330px;
+      gap: 15px;
+      padding: 30px 0;
+      & .col {
+        gap: 15px;
+        grid-template-columns: repeat(4, 60px);
+      }
+      & .col-2 {
+        padding-top: 5px;
+        gap: 15px;
+        grid-template-columns: repeat(2, 130px);
+      }
+    }
+    &-number,
+    &-move,
+    &-action {
+      width: 60px;
+      height: 60px;
+      font-size: 23px;
+    }
+    &-move.reset,
+    &-move.equals {
+      width: 124px;
+      height: 60px;
+    }
+  }
+}
